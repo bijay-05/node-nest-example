@@ -13,9 +13,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Users {
+  id String @id @default(uuid())
+  username String
+  password String
+  joinedOn DateTime @default(now())
+  posts Posts[]
+}
+
 model Posts {
   id        String   @id @default(uuid())
   title     String
   content   String
   createdOn DateTime @default(now())
+  userId    String
+  user      Users  @relation(fields:[userId], references:[id])
 }
