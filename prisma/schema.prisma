@@ -14,8 +14,9 @@ datasource db {
 }
 
 model Users {
-  id String @id @default(uuid())
+  id String @id @unique @default(uuid())
   username String
+  useremail String @unique
   password String
   joinedOn DateTime @default(now())
   posts Posts[]
