@@ -1,28 +1,29 @@
-
-import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { Injectable, Logger } from '@nestjs/common';
 
 export interface IUser {
-    userId: number;
-    userName: string;
+    id: string;
+    username: string;
+    useremail: string;
     password: string;
+    joinedOn: Date;
 };
 
 @Injectable()
 export class UsersService {
-  private readonly users = [
-    {
-      userId: 1,
-      userName: 'john',
-      password: 'changeme',
-    },
-    {
-      userId: 2,
-      userName: 'maria',
-      password: 'guess',
-    },
-  ];
+  constructor(private prismaService: PrismaService) {};
 
-  async findOne(username: string): Promise<IUser | undefined> {
-    return this.users.find(user => user.userName === username);
+  async getUser(useremail: string): Promise<IUser | undefined> {
+    const logger = new Logger(UsersService.name + "-getUser");
+    try {
+      const user = await this.prismaService.users.findUnique({
+        where: { useremail: useremail}
+      })
+
+      return user;
+    } catch (err) {
+      logger.error(err);
+      throw err;
+    }
   }
 }
