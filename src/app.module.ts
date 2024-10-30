@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { PrismaModule } from './prisma/prisma.module';
-import { PostsModule } from './posts/posts.module';
-import { AuthModule } from './auth/auth.module';
+import { PrismaModule } from 'src/common/prisma/prisma.module';
+import { PostsModule } from 'src/modules/posts/posts.module';
+import { AuthModule } from 'src/modules/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
