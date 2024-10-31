@@ -5,4 +5,5 @@ export interface IAuthToken {
 
 export interface IAuthLogin extends IAuthToken {
     userId: string;
+    sessionId: string;
 }
